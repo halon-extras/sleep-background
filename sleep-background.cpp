@@ -52,7 +52,8 @@ HALON_EXPORT
 bool Halon_init(HalonInitContext* hic)
 {
 	sthread = std::thread([]() {
-    	std::unique_lock<std::mutex> lk(smutex);
+		pthread_setname_np(pthread_self(), "p/sleep");
+		std::unique_lock<std::mutex> lk(smutex);
 		while (!sstop)
 		{
 			if (sindex.empty())
